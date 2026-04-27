@@ -1,0 +1,561 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+
+.app-header {
+  background: #1a1a2e;
+  color: white;
+  padding: 0.875rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.app-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mode-tabs {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.tab-btn {
+  padding: 0.45rem 1.25rem;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  transition: all 0.15s;
+}
+
+.tab-btn:hover {
+  border-color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tab-btn--active {
+  background: white;
+  color: #1a1a2e;
+  border-color: white;
+  font-weight: 600;
+}
+
+.toolbar {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  transition: all 0.15s;
+}
+
+.toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-btn--danger {
+  border-color: #ff6b6b;
+  color: #ff8787;
+}
+
+.toolbar-btn--danger:hover {
+  background: rgba(255, 107, 107, 0.15);
+}
+
+/* ============================================================
+   Build Mode
+   ============================================================ */
+
+.build-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem;
+  gap: 1rem;
+}
+
+.build-layout {
+  display: flex;
+  gap: 1rem;
+  min-height: 500px;
+}
+
+/* ---- Palette ---- */
+
+.palette {
+  width: 190px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  align-self: flex-start;
+}
+
+.palette-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #888;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.palette-item {
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.45rem;
+  background: #f0f4ff;
+  border: 2px solid #c5d3ff;
+  border-radius: 6px;
+  cursor: grab;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #3b5bdb;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.palette-item:hover {
+  background: #dbe4ff;
+  border-color: #748ffc;
+}
+
+.palette-item:active {
+  cursor: grabbing;
+}
+
+/* ---- Form Canvas ---- */
+
+.form-canvas {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  min-height: 450px;
+  border: 2px dashed transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.form-canvas--drag-over {
+  border-color: #748ffc;
+  background: #f0f4ff;
+}
+
+.canvas-empty {
+  text-align: center;
+  color: #bbb;
+  padding: 3.5rem 1rem;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+/* ---- Field Card ---- */
+
+.field-card {
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.field-card:hover {
+  border-color: #748ffc;
+  background: #f5f7ff;
+}
+
+.field-card--selected {
+  border-color: #4263eb;
+  background: #edf2ff;
+}
+
+.field-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.field-type-badge {
+  background: #4263eb;
+  color: white;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+.field-card-label {
+  flex: 1;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  background: none;
+  border: 1px solid #ff6b6b;
+  color: #ff6b6b;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.7rem;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.delete-btn:hover {
+  background: #ff6b6b;
+  color: white;
+}
+
+/* ---- Config Panel ---- */
+
+.config-panel {
+  width: 270px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow-y: auto;
+  align-self: flex-start;
+  max-height: calc(100vh - 120px);
+}
+
+.config-panel h3 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.config-group {
+  margin-bottom: 0.9rem;
+}
+
+.config-label-text {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #777;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.config-group input[type='text'],
+.config-group input[type='number'],
+.config-group input[type='date'] {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.config-group input:focus {
+  border-color: #748ffc;
+  box-shadow: 0 0 0 2px rgba(116, 143, 252, 0.15);
+}
+
+.config-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.config-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.validation-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.validation-row label {
+  font-size: 0.78rem;
+  color: #777;
+  width: 75px;
+  flex-shrink: 0;
+}
+
+.validation-row input {
+  flex: 1;
+  padding: 0.38rem 0.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.validation-row input:focus {
+  border-color: #748ffc;
+}
+
+/* ---- Export / Import Areas ---- */
+
+.export-area,
+.import-area {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.export-area h3,
+.import-area h3 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.export-area textarea,
+.import-area textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  color: #333;
+}
+
+.export-area textarea:focus,
+.import-area textarea:focus {
+  border-color: #748ffc;
+}
+
+.export-close-btn {
+  margin-top: 0.5rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid #dee2e6;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.export-close-btn:hover {
+  background: #f5f5f5;
+}
+
+.import-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.import-confirm-btn {
+  padding: 0.45rem 1.25rem;
+  background: #4263eb;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.import-confirm-btn:hover {
+  background: #3b5bdb;
+}
+
+.import-cancel-btn {
+  padding: 0.45rem 1.25rem;
+  background: #f1f3f5;
+  color: #555;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.import-cancel-btn:hover {
+  background: #e9ecef;
+}
+
+/* ============================================================
+   Preview Mode
+   ============================================================ */
+
+.preview-container {
+  flex: 1;
+  padding: 2rem;
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.preview-form {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.preview-empty {
+  text-align: center;
+  color: #aaa;
+  padding: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.preview-field {
+  margin-bottom: 1.25rem;
+}
+
+.preview-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.35rem;
+}
+
+.preview-field input[type='text'],
+.preview-field input[type='number'],
+.preview-field input[type='email'],
+.preview-field input[type='date'],
+.preview-field select {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s;
+  background: white;
+}
+
+.preview-field input:focus,
+.preview-field select:focus {
+  border-color: #748ffc;
+  box-shadow: 0 0 0 2px rgba(116, 143, 252, 0.15);
+}
+
+.preview-checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.preview-checkbox-wrapper input[type='checkbox'] {
+  width: auto;
+  cursor: pointer;
+}
+
+.error-msg {
+  display: block;
+  color: #c92a2a;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  font-weight: 500;
+}
+
+.submit-btn {
+  margin-top: 1.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  background: #4263eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.submit-btn:hover {
+  background: #3b5bdb;
+}
+
+.success-msg {
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: #d3f9d8;
+  border: 1px solid #8ce99a;
+  border-radius: 6px;
+  color: #2f9e44;
+}
+
+.success-msg strong {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.success-msg p {
+  font-size: 0.85rem;
+  word-break: break-word;
+  line-height: 1.6;
+}
